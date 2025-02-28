@@ -97,7 +97,7 @@ const updateAvatarPreview = (event: Event) => {
 
                                 <img
                                     v-else-if="user.avatar"
-                                    :src="user.avatar"
+                                    :src="'https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + user.avatar"
                                     alt="Current Avatar"
                                     class="h-full w-full object-cover"
                                 />
