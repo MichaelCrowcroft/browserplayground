@@ -84,7 +84,7 @@ const updateAvatarPreview = (event: Event) => {
 
                 <form @submit.prevent="submit" class="space-y-6">
                     <div class="grid gap-2">
-
+                        {{ user }}
                         <Label>Profile Picture</Label>
                         <div class="flex items-center gap-4">
                             <div class="relative h-20 w-20 overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
