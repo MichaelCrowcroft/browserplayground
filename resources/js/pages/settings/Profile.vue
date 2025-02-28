@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { TransitionRoot } from '@headlessui/vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 import DeleteUser from '@/components/DeleteUser.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
@@ -30,15 +31,46 @@ const breadcrumbs: BreadcrumbItem[] = [
 const page = usePage<SharedData>();
 const user = page.props.auth.user as User;
 
+const avatarInput = ref<HTMLInputElement | null>(null);
+const avatarPreview = ref<string | null>(null);
+
 const form = useForm({
+    _method: 'PATCH',
     name: user.name,
     email: user.email,
+    avatar: null as File | null,
 });
 
 const submit = () => {
-    form.patch(route('profile.update'), {
+    form.post(route('profile.update'), {
         preserveScroll: true,
+        forceFormData: true,
+        onSuccess: () => {
+            avatarPreview.value = null;
+            if (avatarInput.value) {
+                avatarInput.value.value = '';
+            }
+        },
     });
+};
+
+const selectNewAvatar = () => {
+    avatarInput.value?.click();
+};
+
+const updateAvatarPreview = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+        form.avatar = target.files[0];
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (e.target) {
+                avatarPreview.value = e.target.result as string;
+            }
+        };
+        reader.readAsDataURL(form.avatar);
+    }
 };
 </script>
 
@@ -51,6 +83,50 @@ const submit = () => {
                 <HeadingSmall title="Profile information" description="Update your name and email address" />
 
                 <form @submit.prevent="submit" class="space-y-6">
+                    <div class="grid gap-2">
+
+                        <Label>Profile Picture</Label>
+
+                        <div class="flex items-center gap-4">
+                            <div class="relative h-20 w-20 overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
+                                <img
+                                    v-if="avatarPreview"
+                                    :src="avatarPreview"
+                                    alt="Avatar Preview"
+                                    class="h-full w-full object-cover"
+                                />
+
+                                <img
+                                    v-else-if="user.avatar"
+                                    :src="user.avatar"
+                                    alt="Current Avatar"
+                                    class="h-full w-full object-cover"
+                                />
+                                <div v-else class="flex h-full w-full items-center justify-center text-lg font-medium text-neutral-500">
+                                    {{ user.name.charAt(0).toUpperCase() }}
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <Button type="button" variant="outline" size="sm" @click="selectNewAvatar">
+                                    Change Picture
+                                </Button>
+                                <input
+                                    ref="avatarInput"
+                                    type="file"
+                                    class="hidden"
+                                    @change="updateAvatarPreview"
+                                    accept="image/*"
+                                />
+                                <p class="text-xs text-muted-foreground">
+                                    JPG, PNG or GIF. 4MB max.
+                                </p>
+                            </div>
+                        </div>
+
+                        <InputError class="mt-2" :message="form.errors.avatar" />
+                    </div>
+
                     <div class="grid gap-2">
                         <Label for="name">Name</Label>
                         <Input id="name" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" placeholder="Full name" />
