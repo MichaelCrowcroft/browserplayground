@@ -36,5 +36,14 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
+    [key: string]: unknown;
+}
+
+export interface Listing {
+    id: number;
+    name: string;
+    link: string;
+    description: string;
+    routes: { show: string; };
+    [key: string]: unknown;
 }
