@@ -18,7 +18,7 @@ class StoreListingRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'link' => ['required', 'url', 'max:255'],
             'description' => ['required', 'string'],
-            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:4096'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:4096'],
         ];
     }
 }
