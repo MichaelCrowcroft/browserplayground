@@ -35,7 +35,7 @@ defineProps<{
                         <img :src="listing.image" class="w-full h-48 object-cover" />
 
                         <CardContent class="p-6">
-                            <p class="text-gray-700 line-clamp-4 mb-4 h-30">{{ listing.description }}</p>
+                            <p class="text-gray-700 line-clamp-3 mb-4 h-28">{{ listing.description }}</p>
                             <!-- <Badge class="bg-indigo-100 text-indigo-800 hover:bg-indigo-200 hover:cursor-default">Indie Game</Badge> */} -->
                         </CardContent>
 
