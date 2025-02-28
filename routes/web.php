@@ -9,12 +9,12 @@ Route::get('/home', function () {
 
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+// Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return redirect('/');
         // return Inertia::render('dashboard');
     })->name('dashboard');
-});
+// });
 
 Route::get('/', [ListingController::class, 'index'])->name('listings.index');
 Route::get('/listings', function () {

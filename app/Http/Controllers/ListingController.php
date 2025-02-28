@@ -13,7 +13,7 @@ class ListingController extends Controller
 {
     public function index()
     {
-        $listings = Listing::with('user')->paginate(21);
+        $listings = Listing::paginate(100);
 
         return Inertia::render('listings/index', [
             'listings' => fn () => ListingResource::collection($listings),
