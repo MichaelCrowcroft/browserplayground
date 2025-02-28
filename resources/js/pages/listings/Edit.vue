@@ -36,7 +36,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('listings.update', {
-        listings: props.listing.id,
+        listing: props.listing.id,
     }), {
         preserveScroll: true,
         forceFormData: true,
