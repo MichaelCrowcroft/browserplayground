@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Listing, type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -21,14 +22,51 @@ const props = defineProps<{
     listing: Listing;
 }>();
 
+const imageInput = ref<HTMLInputElement | null>(null);
+const imagePreview = ref<string | null>(null);
+
 const form = useForm({
+    _method: 'PATCH',
     name: props.listing.name,
     link: props.listing.link,
     description: props.listing.description,
     builder: props.listing.builder,
+    image: null as File | null,
 });
 
-const submit = () => form.post(route('listings.store'));
+const submit = () => {
+    form.post(route('listings.update', {
+        listings: props.listing.id,
+    }), {
+        preserveScroll: true,
+        forceFormData: true,
+        onSuccess: () => {
+            imagePreview.value = null;
+            if (imageInput.value) {
+                imageInput.value.value = '';
+            }
+        },
+    });
+};
+
+const selectNewImage = () => {
+    imageInput.value?.click();
+};
+
+const updateImagePreview = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+        form.image = target.files[0];
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (e.target) {
+                imagePreview.value = e.target.result as string;
+            }
+        };
+        reader.readAsDataURL(form.image);
+    }
+};
 </script>
 
 <template>
@@ -46,6 +84,50 @@ const submit = () => form.post(route('listings.store'));
 
                         <CardContent class="p-6 pt-8">
                             <form @submit.prevent="submit" class="space-y-8">
+                                <div class="grid gap-2">
+                                    <Label for="Image" class="text-lg font-mono text-gray-800 flex items-center uppercase">
+                                        Image
+                                    </Label>
+                                    <div class="w-full">
+                                        <div class="relative overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                                            <img
+                                                v-if="imagePreview"
+                                                :src="imagePreview"
+                                                alt="Image Preview"
+                                                class="h-full w-full object-cover"
+                                            />
+
+                                            <img
+                                                v-else-if="listing.image"
+                                                :src="'https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + listing.image"
+                                                alt="Current image"
+                                                class="h-full w-full object-cover"
+                                            />
+                                            <div v-else class="flex h-full py-8 w-full items-center justify-center text-lg font-medium text-neutral-500">
+                                                <p>No Image</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-6">
+                                            <Button type="button" variant="outline" size="sm" @click="selectNewImage">
+                                                Change Image
+                                            </Button>
+                                            <input
+                                                ref="imageInput"
+                                                type="file"
+                                                class="hidden"
+                                                @change="updateImagePreview"
+                                                accept="image/*"
+                                            />
+                                            <p class="text-xs text-muted-foreground mt-2">
+                                                JPG, PNG or GIF. 4MB max.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <InputError class="mt-2" :message="form.errors.image" />
+                                </div>
+
                                 <div class="grid gap-3">
                                     <Label for="builder" class="text-lg font-mono text-gray-800 flex items-center uppercase">
                                         Builder<span class="text-sm lowercase ml-2">(Only X handles supported)</span>

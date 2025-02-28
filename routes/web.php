@@ -23,6 +23,7 @@ Route::get('/listings', function () {
 Route::post('/listings', [ListingController::class, 'store'])->name('listings.store');
 Route::get('/listings/create', [ListingController::class, 'create'])->name('listings.create');
 Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
+Route::patch('/listings/{listing}', [ListingController::class, 'update'])->name('listings.update');
 Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->name('listings.edit');
 
 require __DIR__.'/settings.php';

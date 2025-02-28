@@ -7,6 +7,7 @@ use App\Http\Resources\ListingResource;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ListingController extends Controller
@@ -27,7 +28,12 @@ class ListingController extends Controller
 
     public function store(StoreListingRequest $request)
     {
-        $request->validated();
+        $data = $request->validated();
+
+        if($request->hasFile('image')) {
+            $path = $request->file('image')->store('cover-images');
+            $data['image'] = $path;
+        }
 
         $listing = Listing::create([
             ...$request->validated(),
@@ -51,5 +57,25 @@ class ListingController extends Controller
         return Inertia::render('listings/Edit', [
             'listing' => fn () => ListingResource::make($listing),
         ]);
+    }
+
+    public function update(StoreListingRequest $request, Listing $listing)
+    {
+        $data = $request->validated();
+
+        if($request->hasFile('image')) {
+            if($listing->image) {
+                Storage::delete($listing->image);
+            }
+            $path = $request->file('image')->store('cover-images');
+            $data['image'] = $path;
+        }
+
+        $listing->fill($data);
+
+        $request->user()->save();
+
+        return Redirect::to('/');
+        // return Redirect::to($listing->showRoute());
     }
 }
