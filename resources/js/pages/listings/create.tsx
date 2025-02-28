@@ -53,21 +53,22 @@ export default function Create() {
 
                         <CardContent className="p-6 pt-8">
                             <form onSubmit={submit} className="space-y-8">
-                                <Label htmlFor="builder" className="text-lg font-mono text-gray-800 flex items-center uppercase">
-                                    Builder<span className="text-sm lowercase ml-2">(Only X handles supported)</span>
-                                </Label>
+                                <div className="grid gap-3">
+                                    <Label htmlFor="builder" className="text-lg font-mono text-gray-800 flex items-center uppercase">
+                                        Builder<span className="text-sm lowercase ml-2">(Only X handles supported)</span>
+                                    </Label>
 
-                                <Input
+                                    <Input
                                         id="builder"
                                         className="mt-1 block w-full border-2 border-indigo-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 bg-white py-2 px-3 font-medium"
                                         value={data.builder}
                                         onChange={(e) => setData('builder', e.target.value)}
                                         required
-                                        autoComplete="builder"
                                         placeholder="@levelsio"
                                     />
 
                                     <InputError className="mt-2 font-mono" message={errors.builder} />
+                                </div>
 
                                 <div className="grid gap-3">
                                     <Label htmlFor="name" className="text-lg font-mono text-gray-800 flex items-center uppercase">
