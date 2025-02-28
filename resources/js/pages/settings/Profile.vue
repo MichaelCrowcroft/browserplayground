@@ -86,7 +86,7 @@ const updateAvatarPreview = (event: Event) => {
                     <div class="grid gap-2">
 
                         <Label>Profile Picture</Label>
-
+                        {{ user.avatar }}
                         <div class="flex items-center gap-4">
                             <div class="relative h-20 w-20 overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
                                 <img
