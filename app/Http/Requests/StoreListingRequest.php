@@ -14,6 +14,7 @@ class StoreListingRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'builder' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'link' => ['required', 'url', 'max:255'],
             'description' => ['required', 'string'],

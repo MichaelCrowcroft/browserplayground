@@ -19,7 +19,6 @@ export default function Show({ listing }: { listing: Listing }) {
             <div className="px-4 py-6 space-y-6 md:max-w-2xl">
                 <Heading title="Create a Listing" description="Add a link to your game and get discovered!" />
                 <p>{listing.name}</p>
-
             </div>
         </AppLayout>
     )

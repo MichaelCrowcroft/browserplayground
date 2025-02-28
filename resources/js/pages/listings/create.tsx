@@ -28,6 +28,7 @@ export default function Create() {
         name: '',
         link: '',
         description: '',
+        builder: '',
     });
 
     const submit: FormEventHandler = (e) => {
@@ -52,25 +53,21 @@ export default function Create() {
 
                         <CardContent className="p-6 pt-8">
                             <form onSubmit={submit} className="space-y-8">
-                                <Label htmlFor="name" className="text-lg font-mono text-gray-800 flex items-center uppercase">
-                                    User
+                                <Label htmlFor="builder" className="text-lg font-mono text-gray-800 flex items-center uppercase">
+                                    Builder<span className="text-sm lowercase ml-2">(Only X handles supported)</span>
                                 </Label>
-                                {auth.user ?
-                                    <div className="grid gap-3">
-                                        <div className="flex items-center space-x-3">
-                                            <Avatar className="h-8 w-8 overflow-hidden rounded-full">
-                                                <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
-                                                <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                                    {getInitials(auth.user.name)}
-                                                </AvatarFallback>
-                                            </Avatar>
-                                            <span className="text-sm font-medium text-gray-700">{auth.user.name}</span>
-                                        </div>
-                                    </div> :
-                                    <div>
-                                        <p><Link className='underline' href={route('login')}>Login</Link> or <Link className='underline' href={route('register')}>create an account</Link> if you want your game to be submitted without a review</p>
-                                    </div>
-                                }
+
+                                <Input
+                                        id="builder"
+                                        className="mt-1 block w-full border-2 border-indigo-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 bg-white py-2 px-3 font-medium"
+                                        value={data.builder}
+                                        onChange={(e) => setData('builder', e.target.value)}
+                                        required
+                                        autoComplete="builder"
+                                        placeholder="@levelsio"
+                                    />
+
+                                    <InputError className="mt-2 font-mono" message={errors.builder} />
 
                                 <div className="grid gap-3">
                                     <Label htmlFor="name" className="text-lg font-mono text-gray-800 flex items-center uppercase">

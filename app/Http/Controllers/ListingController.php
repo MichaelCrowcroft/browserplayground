@@ -35,7 +35,8 @@ class ListingController extends Controller
             'user_id' => Auth::id() ?? null,
         ]);
 
-        return Redirect::to($listing->showRoute());
+        return Redirect::to('/');
+        // return Redirect::to($listing->showRoute());
     }
 
     public function show(Listing $listing)

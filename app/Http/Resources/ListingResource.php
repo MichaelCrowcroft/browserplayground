@@ -11,6 +11,7 @@ class ListingResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'builder' => $this->builder,
             'name' => $this->name,
             'link' => $this->link,
             'description' => $this->description,

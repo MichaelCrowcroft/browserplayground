@@ -42,6 +42,7 @@ export interface User {
 export interface Listing {
     id: number;
     name: string;
+    builder: string;
     link: string;
     description: string;
     routes: { show: string; };
