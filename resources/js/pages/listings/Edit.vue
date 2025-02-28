@@ -99,7 +99,7 @@ const updateImagePreview = (event: Event) => {
 
                                             <img
                                                 v-else-if="listing.image"
-                                                :src="'https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + listing.image"
+                                                :src="listing.image"
                                                 alt="Current image"
                                                 class="h-full w-full object-cover"
                                             />

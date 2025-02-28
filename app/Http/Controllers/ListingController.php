@@ -67,13 +67,12 @@ class ListingController extends Controller
             if($listing->image) {
                 Storage::delete($listing->image);
             }
+
             $path = $request->file('image')->store('cover-images');
             $data['image'] = $path;
         }
 
-        $listing->fill($data);
-
-        $request->user()->save();
+        $listing->update($data);
 
         return Redirect::to('/');
         // return Redirect::to($listing->showRoute());
