@@ -41,7 +41,7 @@ export default function Index({ listings }) {
                     <CardFooter className="bg-gray-100 p-4 border-t border-gray-200 flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                             <a target="_blank" href={"https://www.x.com/" + listing.builder}>
-                                <span className="text-sm font-medium text-gray-700">{listing.builder}</span>
+                                <span className="text-sm font-medium text-gray-700 hover:cursor underline">{listing.builder}</span>
                             </a>
                         </div>
 
