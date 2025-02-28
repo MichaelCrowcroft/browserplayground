@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { type BreadcrumbItem } from '@/types';
+import { Listing, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { ArrowRight } from 'lucide-vue-next';
 
@@ -15,7 +15,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 defineProps<{
-    listings?: object;
+    listings?: Array<Listing>;
 }>();
 </script>
 

@@ -41,7 +41,14 @@ class ListingController extends Controller
 
     public function show(Listing $listing)
     {
-        return Inertia::render('listings/show', [
+        return Inertia::render('listings/Show', [
+            'listing' => fn () => ListingResource::make($listing),
+        ]);
+    }
+
+    public function edit(Listing $listing)
+    {
+        return Inertia::render('listings/Edit', [
             'listing' => fn () => ListingResource::make($listing),
         ]);
     }
