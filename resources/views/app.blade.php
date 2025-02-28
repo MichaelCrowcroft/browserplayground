@@ -13,8 +13,7 @@
         <link href="https://fonts.bunny.net/css?family=kode-mono:400,500,600" rel="stylesheet" />
 
         @routes
-        @viteReactRefresh
-        @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+        @vite(['resources/js/app.ts'])
         @inertiaHead
     </head>
     <body class="font-sans antialiased">

@@ -15,14 +15,14 @@ class ListingController extends Controller
     {
         $listings = Listing::paginate(100);
 
-        return Inertia::render('listings/index', [
+        return Inertia::render('listings/Index', [
             'listings' => fn () => ListingResource::collection($listings),
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('listings/create');
+        return Inertia::render('listings/Create');
     }
 
     public function store(StoreListingRequest $request)

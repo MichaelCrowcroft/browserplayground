@@ -1,4 +1,5 @@
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-vue-next';
+import type { PageProps } from '@inertiajs/core';
 
 export interface Auth {
     user: User;
@@ -9,24 +10,20 @@ export interface BreadcrumbItem {
     href: string;
 }
 
-export interface NavGroup {
-    title: string;
-    items: NavItem[];
-}
-
 export interface NavItem {
     title: string;
-    url: string;
-    icon?: LucideIcon | null;
+    href: string;
+    icon?: LucideIcon;
     isActive?: boolean;
 }
 
-export interface SharedData {
+export interface SharedData extends PageProps {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
-    [key: string]: unknown;
 }
+
+export type BreadcrumbItemType = BreadcrumbItem;
 
 export interface User {
     id: number;
