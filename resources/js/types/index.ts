@@ -41,7 +41,20 @@ export interface Listing {
     name: string;
     builder: string;
     link: string;
+    image: string;
+    comment?: Array<Comment>;
+    user?: User;
     description: string;
     routes: { show: string; };
+    [key: string]: unknown;
+}
+
+export interface Comment {
+    id: number;
+    body: string;
+    created_at: string;
+    updated_at: string;
+    user?: User;
+    listing?: Listing;
     [key: string]: unknown;
 }

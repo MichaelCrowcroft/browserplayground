@@ -14,7 +14,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'avatar' => Storage::get($this->avatar),
+            'avatar' => $this->avatar,
         ];
     }
 }

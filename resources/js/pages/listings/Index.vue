@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Listing, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { ArrowRight } from 'lucide-vue-next';
+import { ArrowRight, MessageCircle } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -30,13 +30,18 @@ defineProps<{
                 <template v-if="listings.data.length > 0">
                     <Card v-for="listing in listings.data" :key="listing.id" class="overflow-hidden border-2 border-gray-900 shadow-md hover:shadow-xl transition-all duration-300 bg-gray-50 group">
                         <CardHeader class="bg-gradient-to-r from-indigo-500 to-purple-600 py-4 px-6">
-                            <CardTitle class="text-white font-mono text-xl truncate">{{ listing.name }}</CardTitle>
+                            <Link :href="route('listings.show', listing.id)">
+                                <CardTitle class="text-white font-mono text-xl truncate">{{ listing.name }}</CardTitle>
+                            </Link>
                         </CardHeader>
                         <img :src="listing.image" class="w-full h-48 object-cover" />
 
-                        <CardContent class="p-6">
-                            <p class="text-gray-700 line-clamp-4 mb-4 h-28">{{ listing.description }}</p>
-                            <!-- <Badge class="bg-indigo-100 text-indigo-800 hover:bg-indigo-200 hover:cursor-default">Indie Game</Badge> */} -->
+                        <CardContent class="px-4">
+                            <Link :href="route('listings.show', listing.id)" class="px-2 py-1 bg-indigo-50 rounded-md border border-indigo-600 inline-flex items-center gap-x-2 mb-2">
+                                <MessageCircle class="size-4" />
+                                <p class="text-sm">{{ listing.comments_count }} Comment{{ listing.comments_count == 1 ? '' : 's' }}</p>
+                            </Link>
+                            <p class="text-gray-700 line-clamp-4 mb-4 h-28 px-2">{{ listing.description }}</p>
                         </CardContent>
 
                         <CardFooter class="bg-gray-100 p-4 border-t border-gray-200 flex items-center justify-between">

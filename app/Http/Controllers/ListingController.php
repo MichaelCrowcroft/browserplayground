@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreListingRequest;
+use App\Http\Requests\Listings\ListingRequest;
 use App\Http\Resources\ListingResource;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class ListingController extends Controller
 {
     public function index()
     {
-        $listings = Listing::paginate(100);
+        $listings = Listing::withCount('comments')->paginate(100);
 
         return Inertia::render('listings/Index', [
             'listings' => fn () => ListingResource::collection($listings),
@@ -26,7 +26,7 @@ class ListingController extends Controller
         return Inertia::render('listings/Create');
     }
 
-    public function store(StoreListingRequest $request)
+    public function store(ListingRequest $request)
     {
         $data = $request->validated();
 
@@ -47,6 +47,8 @@ class ListingController extends Controller
 
     public function show(Listing $listing)
     {
+        $listing->load('comments.user');
+
         return Inertia::render('listings/Show', [
             'listing' => fn () => ListingResource::make($listing),
         ]);
@@ -59,7 +61,7 @@ class ListingController extends Controller
         ]);
     }
 
-    public function update(StoreListingRequest $request, Listing $listing)
+    public function update(ListingRequest $request, Listing $listing)
     {
         $data = $request->validated();
 
