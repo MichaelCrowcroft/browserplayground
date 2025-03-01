@@ -34,7 +34,11 @@ defineProps<{
                                 <CardTitle class="text-white font-mono text-xl truncate">{{ listing.name }}</CardTitle>
                             </Link>
                         </CardHeader>
-                        <img :src="listing.image" class="w-full h-48 object-cover" />
+                        <Link :href="route('listings.show', listing.id)">
+                            <img v-if="listing.image" :src="listing.image" class="w-full h-48 object-cover" />
+                            <img v-else src="https://placehold.co/600x400/EEE/31343C?font=montserrat&text=Image%20Soon" class="w-full h-48 object-cover" />
+
+                        </Link>
 
                         <CardContent class="px-4">
                             <Link :href="route('listings.show', listing.id)" class="px-2 py-1 bg-indigo-50 rounded-md border border-indigo-600 inline-flex items-center gap-x-2 mb-2">

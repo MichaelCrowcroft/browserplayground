@@ -36,13 +36,12 @@ class ListingController extends Controller
         }
 
         $listing = Listing::create([
-            ...$request->validated(),
+            ...$data,
             'type' => 'game',
             'user_id' => Auth::id() ?? null,
         ]);
 
-        return Redirect::to('/');
-        // return Redirect::to($listing->showRoute());
+        return Redirect::to($listing->showRoute());
     }
 
     public function show(Listing $listing)
@@ -76,7 +75,6 @@ class ListingController extends Controller
 
         $listing->update($data);
 
-        return Redirect::to('/');
-        // return Redirect::to($listing->showRoute());
+        return Redirect::to($listing->showRoute());
     }
 }

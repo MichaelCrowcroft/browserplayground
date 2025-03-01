@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Listing, SharedData, User, type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -46,7 +47,9 @@ const addComment = () => commentForm.post(route('listings.comments.store', { lis
                     <CardHeader class="bg-gradient-to-r from-indigo-500 to-purple-600 py-4 px-6">
                         <CardTitle class="text-white font-mono text-xl truncate">{{ listing.name }}</CardTitle>
                     </CardHeader>
-                    <img :src="listing.image" class="w-full h-48 object-cover" />
+                    <img v-if="listing.image" :src="listing.image" class="w-full h-48 object-cover" />
+                    <img v-else src="https://placehold.co/600x400/EEE/31343C?font=montserrat&text=Image%20Soon" class="w-full h-48 object-cover" />
+
 
                     <CardContent class="p-6">
                         <p class="text-gray-700 mb-4">{{ listing.description }}</p>
