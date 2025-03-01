@@ -1,5 +1,6 @@
 import '../css/app.css';
 
+import SimpleAnalytics from 'simple-analytics-vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
@@ -29,6 +30,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(SimpleAnalytics, { skip: import.meta.env.VITE_APP_ENV !== "production" })
             .mount(el);
     },
     progress: {
