@@ -9,6 +9,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        @inertiaHead
 
         <script>
             console.log(<?php echo json_encode($listings); ?>);
