@@ -10,6 +10,10 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <script>
+            console.log(<?php echo json_encode($listings); ?>);
+        </script>
+
         <style>
             :root {
                 --primary: #6366F1;
@@ -118,7 +122,7 @@
         <div class="game-container">
             <canvas id="gameCanvas"></canvas>
             <div class="game-ui">
-                <h1>⭐ Discover amazing indie games from our community! ⭐</h1>
+                <h1>⭐ DISCOVER AMAZING INDIE GAMES ⭐</h1>
                 <p class="instructions">WASD to move, Mouse to look, Click to shoot</p>
             </div>
             <div id="crosshair"></div>

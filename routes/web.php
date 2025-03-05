@@ -27,10 +27,8 @@ Route::get('/listings', function () {
 Route::get('/game', function () {
     $listings = Listing::withCount('comments')->get();
 
-    // return ListingResource::collection($listings);
-
     return view('game', [
-        'listings' => $listings,
+        'listings' => $listings->values(),
         // 'listings' => fn () => ListingResource::collection($listings),
     ]);
 });
