@@ -10,10 +10,6 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <script>
-            console.log(<?php echo json_encode($listings); ?>);
-        </script>
-
         <style>
             :root {
                 --primary: #6366F1;

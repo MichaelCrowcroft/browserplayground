@@ -22,7 +22,6 @@ declare module 'vite/client' {
 }
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./pages/${name}.vue`, import.meta.glob<DefineComponent>('./pages/**/*.vue')),
@@ -30,7 +29,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
-            .use(SimpleAnalytics, { skip: import.meta.env.VITE_APP_ENV !== "production" })
+            .use(SimpleAnalytics, { skip: import.meta.env.MODE !== "production" })
             .mount(el);
     },
     progress: {
