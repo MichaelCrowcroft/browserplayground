@@ -282,7 +282,7 @@
 
                     // Draw the text
                     context.fillStyle = '#A855F7';
-                    context.fillText(text, canvas.width / 2, (canvas.height / 2) + 10);
+                    context.fillText(text, canvas.width / 2, (canvas.height / 2) + 20);
 
                     // Create texture from the updated canvas
                     const texture = new THREE.CanvasTexture(canvas);
