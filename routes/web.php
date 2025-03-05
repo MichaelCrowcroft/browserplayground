@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ListingController;
+use App\Http\Resources\ListingResource;
+use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/home', function () {
@@ -20,6 +22,17 @@ Route::get('/home', function () {
 Route::get('/', [ListingController::class, 'index'])->name('listings.index');
 Route::get('/listings', function () {
     return redirect('/');
+});
+
+Route::get('/game', function () {
+    $listings = Listing::withCount('comments')->get();
+
+    // return ListingResource::collection($listings);
+
+    return view('game', [
+        // 'listings' => $listings,
+        'listings' => fn () => ListingResource::collection($listings),
+    ]);
 });
 
 Route::post('/listings', [ListingController::class, 'store'])->name('listings.store');
