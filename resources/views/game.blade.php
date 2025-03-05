@@ -304,7 +304,7 @@
 
                     // Load a placeholder image as texture
                     // You can replace this URL with your own image
-                    const texture = this.textureLoader.load(this.game.image);
+                    const texture = this.textureLoader.load('https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + this.game.image);
 
                     const material = new THREE.MeshBasicMaterial({
                         map: texture,
@@ -470,7 +470,7 @@
                     const z = (Math.random() - 0.5) * 40;
                     const position = new THREE.Vector3(x, 2, z);
 
-                    const games = [<?php echo json_encode($listings); ?>];
+                    const games = <?php echo json_encode($listings); ?>;
                     const game = games[Math.floor(Math.random() * games.length)];
 
                     const portal = new Portal(position, {

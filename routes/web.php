@@ -27,11 +27,11 @@ Route::get('/listings', function () {
 Route::get('/game', function () {
     $listings = Listing::withCount('comments')->get();
 
-    // return ListingResource::collection($listings);
+    return ListingResource::collection($listings);
 
     return view('game', [
-        // 'listings' => $listings,
-        'listings' => fn () => ListingResource::collection($listings),
+        'listings' => $listings,
+        // 'listings' => fn () => ListingResource::collection($listings),
     ]);
 });
 
