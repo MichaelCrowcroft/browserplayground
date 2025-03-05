@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ListingController;
-use App\Http\Resources\ListingResource;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
