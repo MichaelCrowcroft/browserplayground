@@ -254,30 +254,43 @@
                 }
 
                 createNameLabel() {
-                    // Create canvas for text
+                    const text = this.game.name || 'Unknown Game';
                     const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = 256;
-                    canvas.height = 64;
+                    let context = canvas.getContext('2d');
 
-                    // Draw text on canvas
-                    context.fillStyle = 'rgba(0, 0, 0, 0.8)';
-                    context.fillRect(0, 0, canvas.width, canvas.height);
+                    // Temporarily pick a font and measure text width
+                    context.font = '32px "Press Start 2P", monospace';
+                    const textMetrics = context.measureText(text);
+
+                    // Add some padding around the text
+                    const padding = 60;
+                    const textWidth = Math.ceil(textMetrics.width + padding);
+                    const textHeight = 60; // Enough for one line of text + spacing
+
+                    // Resize canvas based on text
+                    canvas.width = textWidth;
+                    canvas.height = textHeight;
+
+                    // Re-get the context after resizing (to avoid blurry text in some browsers)
+                    context = canvas.getContext('2d');
                     context.font = '32px "Press Start 2P", monospace';
                     context.textAlign = 'center';
+
+                    // Draw background box
+                    context.fillStyle = 'rgba(0, 0, 0, 0.8)';
+                    context.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Draw the text
                     context.fillStyle = '#A855F7';
-                    context.fillText(this.game.name || 'Unknown Game', canvas.width / 2, canvas.height / 2 + 10);
+                    context.fillText(text, canvas.width / 2, (canvas.height / 2) + 10);
 
-                    // Create texture from canvas
+                    // Create texture from the updated canvas
                     const texture = new THREE.CanvasTexture(canvas);
-
-                    // Create label sprite
                     const material = new THREE.SpriteMaterial({ map: texture });
                     const sprite = new THREE.Sprite(material);
 
-                    // Position label above portal
+                    // Position the label a bit above the portal
                     sprite.position.copy(this.position);
-                    sprite.position.y += 1.5;
 
                     // Scale sprite
                     sprite.scale.set(2, 0.5, 1);
@@ -299,21 +312,19 @@
                 }
 
                 createPortalCenter() {
-                    // Create a circular plane for the portal image
-                    const geometry = new THREE.CircleGeometry(0.9, 32);
+                    const geometry = new THREE.CircleGeometry(0.9, 44);
 
                     const texture = this.textureLoader.load('https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + this.game.image + '?not-from-cache-please');
 
                     const material = new THREE.MeshBasicMaterial({
                         map: texture,
                         transparent: true,
-                        opacity: 0.8,
+                        opacity: 0.9,
                         side: THREE.DoubleSide
                     });
 
                     const portalCenter = new THREE.Mesh(geometry, material);
                     portalCenter.position.copy(this.position);
-                    // Make it face forward (vertical orientation)
 
                     return portalCenter;
                 }
@@ -355,7 +366,6 @@
                 }
             }
 
-            // Game3D.js
             class Game {
                 constructor() {
                     this.setupThreeJS();
@@ -366,7 +376,6 @@
                     this.portalSpawnInterval = 5000;
                     this.lastPortalSpawn = 0;
 
-                    // Bullet properties
                     this.bulletSpeed = 1;
                     this.bulletSize = 0.1;
 
@@ -385,7 +394,6 @@
                     this.renderer.setSize(window.innerWidth, window.innerHeight);
                     this.renderer.setClearColor(0x1E1B4B);
 
-                    // Lighting
                     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
                     this.scene.add(ambientLight);
 
@@ -437,7 +445,6 @@
                                 this.scene.remove(portal.nameLabel);
                                 this.portals = this.portals.filter(p => p !== portal);
 
-                                // Remove the bullet after collision
                                 this.scene.remove(bullet);
                                 this.bullets = this.bullets.filter(b => b !== bullet);
                             }
@@ -549,7 +556,6 @@
                 }
             }
 
-            // Initialize game on window load
             window.addEventListener('load', () => {
                 new Game();
             });
