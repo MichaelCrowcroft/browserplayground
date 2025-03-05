@@ -302,9 +302,7 @@
                     // Create a circular plane for the portal image
                     const geometry = new THREE.CircleGeometry(0.9, 32);
 
-                    // Load a placeholder image as texture
-                    // You can replace this URL with your own image
-                    this.textureLoader.crossOrigin = 'anonymous'
+                    this.textureLoader.crossOrigin = 'https://www.browserplayground.com'
                     const texture = this.textureLoader.load('https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + this.game.image);
 
                     const material = new THREE.MeshBasicMaterial({
