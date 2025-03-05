@@ -19,12 +19,9 @@ Route::get('/home', function () {
     })->name('dashboard');
 // });
 
-Route::get('/', [ListingController::class, 'index'])->name('listings.index');
-Route::get('/listings', function () {
-    return redirect('/');
-});
+Route::get('/listings', [ListingController::class, 'index'])->name('listings.index');
 
-Route::get('/game', function () {
+Route::get('/', function () {
     $listings = Listing::withCount('comments')->get();
 
     return view('game', [
