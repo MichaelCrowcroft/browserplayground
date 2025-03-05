@@ -303,7 +303,7 @@
                     const geometry = new THREE.CircleGeometry(0.9, 32);
 
                     this.textureLoader.crossOrigin = 'https://www.browserplayground.com'
-                    const texture = this.textureLoader.load('https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + this.game.image);
+                    const texture = this.textureLoader.load('https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + this.game.image + '?not-from-cache-please');
 
                     const material = new THREE.MeshBasicMaterial({
                         map: texture,
