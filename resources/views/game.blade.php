@@ -282,7 +282,7 @@
 
                     // Draw the text
                     context.fillStyle = '#A855F7';
-                    context.fillText(text, canvas.width / 2, (canvas.height / 2) + 20);
+                    context.fillText(text, canvas.width / 2, (canvas.height / 2) + 10);
 
                     // Create texture from the updated canvas
                     const texture = new THREE.CanvasTexture(canvas);
@@ -373,8 +373,13 @@
                     this.player = new Player(this.camera, this.scene);
                     this.portals = [];
                     this.bullets = [];
-                    this.portalSpawnInterval = 5000;
-                    this.lastPortalSpawn = 0;
+                    // this.portalSpawnInterval = 5000;
+                    // this.lastPortalSpawn = 0;
+
+                    const games = <?php echo json_encode($listings); ?>;
+                    games.forEach(game => {
+                        this.spawnPortal(game);
+                    });
 
                     this.bulletSpeed = 1;
                     this.bulletSize = 0.1;
@@ -470,13 +475,10 @@
                     this.renderer.setSize(window.innerWidth, window.innerHeight);
                 }
 
-                spawnPortal() {
+                spawnPortal(game) {
                     const x = (Math.random() - 0.5) * 40;
                     const z = (Math.random() - 0.5) * 40;
                     const position = new THREE.Vector3(x, 2, z);
-
-                    const games = <?php echo json_encode($listings); ?>;
-                    const game = games[Math.floor(Math.random() * games.length)];
 
                     const portal = new Portal(position, {
                         link: game.link,
@@ -484,19 +486,21 @@
                         image: game.image,
                         cameraPosition: this.camera.position
                     });
+
+
                     this.scene.add(portal.mesh);
                     this.scene.add(portal.glowEffect);
                     this.scene.add(portal.portalCenter);
                     this.scene.add(portal.nameLabel);
                     this.portals.push(portal);
 
-                    if (this.portals.length > 5) {
-                        const oldPortal = this.portals.shift();
-                        this.scene.remove(oldPortal.mesh);
-                        this.scene.remove(oldPortal.glowEffect);
-                        this.scene.remove(oldPortal.portalCenter);
-                        this.scene.remove(oldPortal.nameLabel);
-                    }
+                    // if (this.portals.length > 5) {
+                    //     const oldPortal = this.portals.shift();
+                    //     this.scene.remove(oldPortal.mesh);
+                    //     this.scene.remove(oldPortal.glowEffect);
+                    //     this.scene.remove(oldPortal.portalCenter);
+                    //     this.scene.remove(oldPortal.nameLabel);
+                    // }
                 }
 
                 createEnvironment() {
@@ -540,11 +544,11 @@
                         portal.game.cameraPosition = this.camera.position;
                     });
 
-                    const currentTime = Date.now();
-                    if (currentTime - this.lastPortalSpawn > this.portalSpawnInterval) {
-                        this.spawnPortal();
-                        this.lastPortalSpawn = currentTime;
-                    }
+                    // const currentTime = Date.now();
+                    // if (currentTime - this.lastPortalSpawn > this.portalSpawnInterval) {
+                    //     this.spawnPortal();
+                    //     this.lastPortalSpawn = currentTime;
+                    // }
 
                     this.portals.forEach(portal => portal.update());
                 }
