@@ -250,6 +250,7 @@
                 constructor(position, game) {
                     this.position = position;
                     this.game = game;
+                    this.image = game.image;
                     this.textureLoader = new THREE.TextureLoader();
                     this.mesh = this.createPortalMesh();
                     this.glowEffect = this.createGlowEffect();
@@ -308,7 +309,7 @@
 
                     // Load a placeholder image as texture
                     // You can replace this URL with your own image
-                    const texture = this.textureLoader.load('https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + game.image);
+                    const texture = this.textureLoader.load('https://fls-9e511cc4-73e8-4419-b3b4-50d0f2a13cbe.laravel.cloud/' + this.image);
 
                     const material = new THREE.MeshBasicMaterial({
                         map: texture,
