@@ -118,7 +118,7 @@
         <div class="game-container">
             <canvas id="gameCanvas"></canvas>
             <div class="game-ui">
-                <h1>RETRO FPS HUB</h1>
+                <h1>⭐ Discover amazing indie games from our community! ⭐</h1>
                 <p class="instructions">WASD to move, Mouse to look, Click to shoot</p>
             </div>
             <div id="crosshair"></div>
